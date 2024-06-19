@@ -1,6 +1,7 @@
 const dbclient = require('../utils/db')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const postNew = async (req, res) => {
+   console.log('received post request to /users')
    const { email, password } = req.body
    if (!email) {
       return res.status(400).json({
@@ -28,11 +29,11 @@ const postNew = async (req, res) => {
       }
       const result = await usercollection.insertOne(newUser);
       res.status(201).json({
+         id: result.insertedId,
          email: newUser.email,
-         id: result.insertedId
       })
    } catch (error) {
       res.status(500).json({error: 'Internal Server Error'})
    }
 }
-module.exports = postNew
+module.exports = { postNew }
