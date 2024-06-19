@@ -22,34 +22,34 @@ class DBClient {
     return this.isconnected;
   }
 
-//   async nbUsers() {
-//     const users = await this.db.collection('users');
-//     const usercount = await users.countDocuments();
-//     return usercount;
-//   }
+  //   async nbUsers() {
+  //     const users = await this.db.collection('users');
+  //     const usercount = await users.countDocuments();
+  //     return usercount;
+  //   }
 
-//   async nbFiles() {
-//     const files = await this.db.collection('files');
-//     const filecount = await files.countDocuments();
-//     return filecount;
-//   }
-    async nbUsers() {
-        if (!this.db) {
-            return 0;
-        }
-        const users = await this.db.collection('users');
-        const usercount = await users.countDocuments();
-        return usercount;
+  //   async nbFiles() {
+  //     const files = await this.db.collection('files');
+  //     const filecount = await files.countDocuments();
+  //     return filecount;
+  //   }
+  async nbUsers() {
+    if (!this.db) {
+      return 0;
     }
+    const users = await this.db.collection('users');
+    const usercount = await users.countDocuments();
+    return usercount;
+  }
 
-    async nbFiles() {
-        if (!this.db) {
-            return 0;
-        }
-        const files = await this.db.collection('files');
-        const filecount = await files.countDocuments();
-        return filecount;
+  async nbFiles() {
+    if (!this.db) {
+      return 0;
     }
+    const files = await this.db.collection('files');
+    const filecount = await files.countDocuments();
+    return filecount;
+  }
 }
 const dbClient = new DBClient();
 module.exports = dbClient;
