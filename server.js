@@ -4,6 +4,6 @@ const app = express()
 
 app.use(require('./routes/index'))
 
-app.listen(() => {
+app.listen(PORT, () => {
     console.log(`server running at port: ${PORT}`)
 })
