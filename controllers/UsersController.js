@@ -23,7 +23,7 @@ const postNew = async (req, res) => {
         error: 'Already exist',
       });
     }
-    const hashpassword = sha1(password)
+    const hashpassword = sha1(password);
     const newUser = {
       email,
       password: hashpassword,
