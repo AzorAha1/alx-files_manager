@@ -1,6 +1,7 @@
 const sha1 = require('sha1');
 const dbclient = require('../utils/db');
 const dbClient = require('../utils/db');
+const redisclient = require('../utils/redis');
 
 const postNew = async (req, res) => {
   console.log('received post request to /users');
@@ -39,7 +40,7 @@ const postNew = async (req, res) => {
   }
 };
 const getMe = async (req, res) => {
-   const token = req['authorization']
+   const token = req.headers['x-token']
    const theuserid = await redisclient.get(`auth_${token}`)
    const usercollection = dbClient.db.collection('users')
    const user = await usercollection.findOne({
