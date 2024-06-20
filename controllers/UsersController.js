@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const dbclient = require('../utils/db');
 
 const postNew = async (req, res) => {
@@ -23,7 +23,7 @@ const postNew = async (req, res) => {
         error: 'Already exist',
       });
     }
-    const hashpassword = await bcrypt.hash(password, 10);
+    const hashpassword = crypto.createHash('sha1').update(password).digest('hex')
     const newUser = {
       email,
       password: hashpassword,
