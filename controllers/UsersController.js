@@ -1,5 +1,6 @@
 const sha1 = require('sha1');
 const dbclient = require('../utils/db');
+const dbClient = require('../utils/db');
 
 const postNew = async (req, res) => {
   console.log('received post request to /users');
@@ -37,4 +38,21 @@ const postNew = async (req, res) => {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-module.exports = { postNew };
+const getMe = async (req, res) => {
+   const token = req['authorization']
+   const theuserid = await redisclient.get(`auth_${token}`)
+   const usercollection = dbClient.db.collection('users')
+   const user = await usercollection.findOne({
+      _id: theuserid
+   })
+   if (!user) {
+      return res.status(200).json({
+         error: 'Unauthorized'
+      })
+   }
+   return res.status(200).json({
+      email: user.email,
+      id: user.id
+   })
+}
+module.exports = { postNew, getMe };
