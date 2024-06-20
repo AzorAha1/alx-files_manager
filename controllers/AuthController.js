@@ -40,7 +40,7 @@ const redisclient = require('../utils/redis')
 //     })
 // }
 const getConnect = async (req, res) => {
-    const authHeader = req.headers['authorization']
+    const authHeader = req.headers['Authorization']
     if (!authHeader || !authHeader.startsWith('Basic ')) {
         return res.status(400).json({ error: 'Unauthorized' })
     }
@@ -66,7 +66,7 @@ const getConnect = async (req, res) => {
 }
 
 const getDisconnect = async (req, res) => {
-    const token = req['authorization']
+    const token = req.headers['x-token']
     const theuserid = await redisclient.get(`auth_${token}`)
     // const usercollection = dbclient.db.collection('users')
     // const finduserbyid = await usercollection.findOne({
@@ -78,6 +78,6 @@ const getDisconnect = async (req, res) => {
         })
     }
     await redisclient.del(`auth_${token}`)
-    return res.status(200)
+    return res.status(200).send()
 }
 module.exports = { getConnect, getDisconnect }
