@@ -1,6 +1,5 @@
-const dbClient = require('../utils/db');
-
 const redis = require('redis');
+const dbClient = require('../utils/db');
 
 const client = redis.createClient();
 let isconnected = false;
