@@ -1,4 +1,4 @@
-const crypto = require('crypto');
+const sha1 = require('sha1');
 const dbclient = require('../utils/db');
 
 const postNew = async (req, res) => {
@@ -23,7 +23,7 @@ const postNew = async (req, res) => {
         error: 'Already exist',
       });
     }
-    const hashpassword = crypto.createHash('sha1').update(password).digest('hex')
+    const hashpassword = sha1(password)
     const newUser = {
       email,
       password: hashpassword,
